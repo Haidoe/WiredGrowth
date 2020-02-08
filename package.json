@@ -1,0 +1,35 @@
+{
+  "name": "WiredGrowth",
+  "version": "1.0.0",
+  "description": "",
+  "main": "index.js",
+  "scripts": {
+    "server": "nodemon server.js",
+    "client": "cd client && npm start",
+    "dev": "concurrently --names \"server,client\" \"npm run --silent\" \"npm run client --silent\""
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/Haidoe/WiredGrowth.git"
+  },
+  "keywords": [],
+  "author": "",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/Haidoe/WiredGrowth/issues"
+  },
+  "homepage": "https://github.com/Haidoe/WiredGrowth#readme",
+  "dependencies": {
+    "apollo-server": "^2.10.0",
+    "bcryptjs": "^2.4.3",
+    "dotenv": "^8.2.0",
+    "graphql": "^14.6.0",
+    "jsonwebtoken": "^8.5.1",
+    "md5": "^2.2.1",
+    "mongoose": "^5.8.11"
+  },
+  "devDependencies": {
+    "concurrently": "^5.1.0",
+    "nodemon": "^2.0.2"
+  }
+}
