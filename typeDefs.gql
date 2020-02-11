@@ -1,0 +1,32 @@
+type User {
+    _id: ID
+    username: String!
+    email: String!
+    password: String!
+    avatar: String
+    joinDate: String!
+    isActivated: Boolean 
+}
+
+type Campus {
+    _id: ID
+    campus: String!
+}
+
+type AttendanceStatus {
+    _id: ID
+    status: String!
+    description: String!
+}
+
+type Attendance {
+    _id: ID
+    user: User
+    campus: Campus
+    attendanceStatus: AttendanceStatus
+    date: String!
+}
+
+type Query {
+    getUsers: [User]
+}
