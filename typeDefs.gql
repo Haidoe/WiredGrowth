@@ -30,3 +30,7 @@ type Attendance {
 type Query {
     getUsers: [User]
 }
+
+type Mutation {
+    signupUser(username: String!, email: String!, password: String!): User! 
+}
