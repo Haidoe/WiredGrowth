@@ -21,9 +21,10 @@ type AttendanceStatus {
 
 type Attendance {
     _id: ID
-    user: User
-    campus: Campus
-    attendanceStatus: AttendanceStatus
+    user: User!
+    campus: Campus!
+    attendanceStatus: AttendanceStatus!
+    createdBy: User!
     date: String!
 }
 
@@ -32,5 +33,6 @@ type Query {
 }
 
 type Mutation {
-    signupUser(username: String!, email: String!, password: String!): User! 
+    signupUser(username: String!, email: String!, password: String!): User!
+    addCampus(campus: String!): Campus!   
 }

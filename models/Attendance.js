@@ -16,6 +16,11 @@ const AttendanceSchema = new mongoose.Schema({
         required: true,
         ref: 'AttendanceStatus'
     },
+    createdBy: {
+        type: mongoose.Schema.Types.ObjectId,
+        required: true,
+        ref: 'User'
+    },
     date: {
         type:String,
         required: true

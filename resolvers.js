@@ -15,6 +15,19 @@ module.exports = {
             }).save();
 
             return newUser;
+        },
+        addCampus: async (_, { campus }, { Campus }) => {
+            const oldCampus = await Campus.findOne({ campus });
+
+            if(oldCampus) {
+                throw new Error("Campus already exists");
+            }
+
+            const newCampus = await new Campus({
+                campus
+            }).save();
+
+            return newCampus
         }
     }
 }
