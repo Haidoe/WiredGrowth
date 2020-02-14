@@ -34,5 +34,6 @@ type Query {
 
 type Mutation {
     signupUser(username: String!, email: String!, password: String!): User!
-    addCampus(campus: String!): Campus!   
+    addCampus(campus: String!): Campus!
+    addAttendanceStatus(status: String!, description: String!): AttendanceStatus!
 }

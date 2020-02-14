@@ -28,6 +28,20 @@ module.exports = {
             }).save();
 
             return newCampus
+        },
+        addAttendanceStatus: async (_, { status, description }, { AttendanceStatus } ) => {
+            const oldStatus = await AttendanceStatus.findOne({ status });
+
+            if(oldStatus) {
+                throw new Error("Attendance Status already exists");
+            }
+
+            const newStatus = await new AttendanceStatus({
+                status,
+                description
+            }).save();
+
+            return newStatus;
         }
     }
 }
