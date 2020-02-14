@@ -11,6 +11,15 @@ const AttendanceSchema = new mongoose.Schema({
         required: true,
         ref: 'Campus'
     },
+    task: {
+        type: mongoose.Schema.Types.ObjectId,
+        ref: 'Task'
+    },
+    team: {
+        type: mongoose.Schema.Types.ObjectId,
+        required: true,
+        ref: 'Team'
+    },
     attendanceStatus: {
         type: mongoose.Schema.Types.ObjectId,
         required: true,

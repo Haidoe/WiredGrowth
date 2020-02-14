@@ -12,6 +12,8 @@ dotenv.config({ path: 'variables.env' })
 
 const User = require('./models/User')
 const Campus = require('./models/Campus')
+const Task = require('./models/Task')
+const Team = require('./models/Team')
 const AttendanceStatus = require('./models/AttendanceStatus')
 const Attendance = require('./models/Attendance')
 
