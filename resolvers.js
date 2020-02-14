@@ -42,6 +42,53 @@ module.exports = {
             }).save();
 
             return newStatus;
+        },
+        addTeam: async (_, { team, description }, { Team }) => {
+            const oldTeam = await Team.findOne({ team });
+
+            if(oldTeam){
+                throw new Error("Team already exists");
+            }
+
+            const newTeam = await new Team({
+                team,
+                description
+            }).save();
+
+            return newTeam;
+        },
+        addTask: async (_, { task, description }, { Task }) => {
+            const oldTask = await Task.findOne({ task });
+
+            if(oldTask){
+                throw new Error("Task already exists");
+            }
+
+            const newTask = await new Task({
+                task,
+                description
+            }).save();
+
+            return newTask;
+        },
+        addAttendance: async (_, { user, team, task, campus, attendanceStatus, createdBy, date }, { Attendance }) => {
+            const oldAttendance = await Attendance.findOne({ user, date});
+
+            if(oldAttendance){
+                throw new Error("User has already a record of attendance this week");
+            }
+            
+            const newAttendance = await new Attendance({
+                user,
+                team,
+                task,
+                campus,
+                attendanceStatus,
+                createdBy,
+                date
+            }).save();
+
+            return newAttendance;
         }
     }
 }

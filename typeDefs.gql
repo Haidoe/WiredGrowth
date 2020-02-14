@@ -13,6 +13,18 @@ type Campus {
     campus: String!
 }
 
+type Task {
+    _id: ID
+    task: String!
+    description: String
+}
+
+type Team {
+    _id: ID
+    team: String!
+    description: String
+}
+
 type AttendanceStatus {
     _id: ID
     status: String!
@@ -22,6 +34,8 @@ type AttendanceStatus {
 type Attendance {
     _id: ID
     user: User!
+    team: Team!
+    task: Task
     campus: Campus!
     attendanceStatus: AttendanceStatus!
     createdBy: User!
@@ -36,4 +50,7 @@ type Mutation {
     signupUser(username: String!, email: String!, password: String!): User!
     addCampus(campus: String!): Campus!
     addAttendanceStatus(status: String!, description: String!): AttendanceStatus!
+    addTask(task: String!, description: String): Task!
+    addTeam(team: String!, description: String): Team!
+    addAttendance(user: ID!, team: ID!, task: ID, campus: ID!, attendanceStatus: ID!, createdBy: ID!, date: String): Attendance!
 }

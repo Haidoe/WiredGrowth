@@ -32,6 +32,8 @@ const server = new ApolloServer({
     context: {
         User,
         Campus,
+        Team,
+        Task,
         Attendance,
         AttendanceStatus
     }
