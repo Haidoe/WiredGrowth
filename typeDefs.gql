@@ -44,6 +44,10 @@ type Attendance {
 
 type Query {
     getUsers: [User]
+    getTeams: [Team]
+    getTasks: [Task]
+    getCampuses: [Campus]
+    getAttendanceStatus: [AttendanceStatus]
 }
 
 type Mutation {

@@ -1,4 +1,16 @@
 module.exports = {
+    Query: {
+        getUsers: async (_, args, { User }) => {
+            const users = await User.find({}).sort({ joinDate: 'desc' });
+
+            return users;
+        },
+        getCampuses: async (_, args, { Campus }) => {
+            const campuses = await Campus.find({});
+
+            return campuses;
+        }
+    },
     Mutation : {
         signupUser: async (_, {username, email, password}, { User }) => {
             const user = await User.findOne({ username });
