@@ -1,60 +1,69 @@
 type User {
-    _id: ID
-    username: String!
-    email: String!
-    password: String!
-    avatar: String
-    joinDate: String!
-    isActivated: Boolean 
+  _id: ID
+  username: String!
+  email: String!
+  password: String!
+  avatar: String
+  joinDate: String!
+  isActivated: Boolean
 }
 
 type Campus {
-    _id: ID
-    campus: String!
+  _id: ID
+  campus: String!
 }
 
 type Task {
-    _id: ID
-    task: String!
-    description: String
+  _id: ID
+  task: String!
+  description: String
 }
 
 type Team {
-    _id: ID
-    team: String!
-    description: String
+  _id: ID
+  team: String!
+  description: String
 }
 
 type AttendanceStatus {
-    _id: ID
-    status: String!
-    description: String!
+  _id: ID
+  status: String!
+  description: String!
 }
 
 type Attendance {
-    _id: ID
-    user: User!
-    team: Team!
-    task: Task
-    campus: Campus!
-    attendanceStatus: AttendanceStatus!
-    createdBy: User!
-    date: String!
+  _id: ID
+  user: User!
+  team: Team!
+  task: Task
+  campus: Campus!
+  attendanceStatus: AttendanceStatus!
+  createdBy: User!
+  date: String!
 }
 
 type Query {
-    getUsers: [User]
-    getTeams: [Team]
-    getTasks: [Task]
-    getCampuses: [Campus]
-    getAttendanceStatus: [AttendanceStatus]
+  getUsers: [User]
+  getTeams: [Team]
+  getTasks: [Task]
+  getCampuses: [Campus]
+  getAttendanceStatus: [AttendanceStatus]
 }
 
 type Mutation {
-    signupUser(username: String!, email: String!, password: String!): User!
-    addCampus(campus: String!): Campus!
-    addAttendanceStatus(status: String!, description: String!): AttendanceStatus!
-    addTask(task: String!, description: String): Task!
-    addTeam(team: String!, description: String): Team!
-    addAttendance(user: ID!, team: ID!, task: ID, campus: ID!, attendanceStatus: ID!, createdBy: ID!, date: String): Attendance!
+  signupUser(username: String!, email: String!, password: String!): User!
+  signinUser(username: String!, password: String!): User!
+  addCampus(campus: String!): Campus!
+  addAttendanceStatus(status: String!, description: String!): AttendanceStatus!
+  addTask(task: String!, description: String): Task!
+  addTeam(team: String!, description: String): Team!
+  addAttendance(
+    user: ID!
+    team: ID!
+    task: ID
+    campus: ID!
+    attendanceStatus: ID!
+    createdBy: ID!
+    date: String
+  ): Attendance!
 }
