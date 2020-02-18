@@ -85,6 +85,7 @@ export default new Vuex.Store({
             commit("setUser", null);
             localStorage.setItem("token", "");
             apolloClient.resetStore();
+            router.push("/");
         }
     }
 });
