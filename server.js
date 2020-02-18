@@ -37,8 +37,7 @@ mongoose
 const getUser = async token => {
     if (token) {
         try {
-            let user = await jwt.verify(token, process.env.SECRET_JWT);
-            console.log(user);
+            return await jwt.verify(token, process.env.SECRET_JWT);
         } catch (error) {
             console.log(error);
         }
@@ -48,9 +47,8 @@ const getUser = async token => {
 const server = new ApolloServer({
     typeDefs,
     resolvers,
-    context: ({ req }) => {
+    context: async ({ req }) => {
         const token = req.headers["authorization"];
-
         return {
             User,
             Campus,
@@ -58,7 +56,7 @@ const server = new ApolloServer({
             Task,
             Attendance,
             AttendanceStatus,
-            currentUser: getUser(token)
+            currentUser: await getUser(token)
         };
     }
 });

@@ -52,6 +52,7 @@ type Query {
     getTasks: [Task]
     getCampuses: [Campus]
     getAttendanceStatus: [AttendanceStatus]
+    getCurrentUser: User
 }
 
 type Mutation {

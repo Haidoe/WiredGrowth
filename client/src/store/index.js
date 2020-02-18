@@ -3,7 +3,7 @@ import Vuex from "vuex";
 
 import { defaultClient as apolloClient } from "../main";
 import { GET_CAMPUSES } from "../queries/campus";
-import { SIGNIN_USER } from "../queries/user";
+import { SIGNIN_USER, GET_CURRENT_USER } from "../queries/user";
 
 Vue.use(Vuex);
 
@@ -48,6 +48,21 @@ export default new Vuex.Store({
 
             commit("setCampusLoading", false);
         },
+        getCurrentUser: async ({ commit }) => {
+            commit("setUserLoading", true);
+
+            try {
+                const { data } = await apolloClient.query({
+                    query: GET_CURRENT_USER
+                });
+
+                console.log(data);
+            } catch (error) {
+                console.log("[ERR]", error.message);
+            }
+
+            commit("setUserLoading", false);
+        },
         signinUser: async ({ commit }, credential) => {
             commit("setUserLoading", true);
             try {
@@ -58,7 +73,7 @@ export default new Vuex.Store({
 
                 localStorage.setItem("token", data.signinUser.token);
             } catch (error) {
-                console.log("ERR: ", error.message, error.name);
+                console.log("[ERR]", error.message);
             }
             commit("setUserLoading", false);
         }

@@ -15,3 +15,16 @@ export const SIGNIN_USER = gql`
         }
     }
 `;
+
+export const GET_CURRENT_USER = gql`
+    query {
+        getCurrentUser {
+            _id
+            username
+            password
+            avatar
+            joinDate
+            isActivated
+        }
+    }
+`;

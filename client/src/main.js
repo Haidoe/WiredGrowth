@@ -1,12 +1,12 @@
 import Vue from "vue";
+import ApolloClient from "apollo-boost";
+import VueApollo from "vue-apollo";
+
 import App from "./App.vue";
 import router from "./router";
 import store from "./store";
 import vuetify from "./plugins/vuetify";
 import "@babel/polyfill";
-
-import ApolloClient from "apollo-boost";
-import VueApollo from "vue-apollo";
 
 Vue.use(VueApollo);
 
@@ -48,5 +48,8 @@ new Vue({
     router,
     store,
     vuetify,
-    render: h => h(App)
+    render: h => h(App),
+    created() {
+        this.$store.dispatch("getCurrentUser");
+    }
 }).$mount("#app");
