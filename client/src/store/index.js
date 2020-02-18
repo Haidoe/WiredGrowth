@@ -80,6 +80,11 @@ export default new Vuex.Store({
                 console.log("[ERR]", error.message);
             }
             commit("setUserLoading", false);
+        },
+        signoutUser: async ({ commit }) => {
+            commit("setUser", null);
+            localStorage.setItem("token", "");
+            apolloClient.resetStore();
         }
     }
 });
