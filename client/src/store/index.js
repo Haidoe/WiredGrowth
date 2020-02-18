@@ -67,6 +67,8 @@ export default new Vuex.Store({
             commit("setUserLoading", false);
         },
         signinUser: async ({ commit }, credential) => {
+            localStorage.setItem("token", "");
+
             commit("setUserLoading", true);
             try {
                 const { data } = await apolloClient.mutate({
