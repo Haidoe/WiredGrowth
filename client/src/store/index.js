@@ -4,6 +4,7 @@ import Vuex from "vuex";
 import { defaultClient as apolloClient } from "../main";
 import { GET_CAMPUSES } from "../queries/campus";
 import { SIGNIN_USER, GET_CURRENT_USER } from "../queries/user";
+import router from "../router";
 
 Vue.use(Vuex);
 
@@ -22,6 +23,7 @@ export default new Vuex.Store({
     getters: {
         campuses: state => state.campuses.data,
         campusLoading: state => state.campuses.loading,
+        user: state => state.user.data,
         userLoading: state => state.user.loading
     },
 
@@ -29,7 +31,8 @@ export default new Vuex.Store({
         setCampusLoading: (state, loading) =>
             (state.campuses.loading = loading),
         setCampuses: (state, campuses) => (state.campuses.data = campuses),
-        setUserLoading: (state, loading) => (state.user.loading = loading)
+        setUserLoading: (state, loading) => (state.user.loading = loading),
+        setUser: (state, user) => (state.user.data = user)
     },
 
     actions: {
@@ -56,7 +59,7 @@ export default new Vuex.Store({
                     query: GET_CURRENT_USER
                 });
 
-                console.log(data);
+                commit("setUser", data.getCurrentUser);
             } catch (error) {
                 console.log("[ERR]", error.message);
             }
@@ -72,6 +75,7 @@ export default new Vuex.Store({
                 });
 
                 localStorage.setItem("token", data.signinUser.token);
+                router.go();
             } catch (error) {
                 console.log("[ERR]", error.message);
             }

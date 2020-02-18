@@ -77,12 +77,19 @@ export default {
         formHasErrors: false
     }),
     computed: {
-        ...mapGetters(["userLoading"]),
+        ...mapGetters(["userLoading", "user"]),
         form() {
             return {
                 username: this.username,
                 password: this.password
             };
+        }
+    },
+    watch: {
+        user(value) {
+            if (value) {
+                this.$router.push("/");
+            }
         }
     },
     methods: {

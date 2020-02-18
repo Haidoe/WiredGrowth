@@ -27,11 +27,7 @@ mongoose
     .then(() => {
         console.log("Database Connected!!");
     })
-    .catch(err => {
-        throw new AuthenticationError(
-            "Your session has ended, please sign in again."
-        );
-    });
+    .catch(err => console.log(err));
 
 //verifying json web token
 const getUser = async token => {
@@ -39,7 +35,9 @@ const getUser = async token => {
         try {
             return await jwt.verify(token, process.env.SECRET_JWT);
         } catch (error) {
-            console.log(error);
+            throw new AuthenticationError(
+                "Your session has been expired, please sign in again."
+            );
         }
     }
 };
