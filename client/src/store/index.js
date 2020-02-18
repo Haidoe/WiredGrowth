@@ -21,7 +21,8 @@ export default new Vuex.Store({
 
     getters: {
         campuses: state => state.campuses.data,
-        campusLoading: state => state.campuses.loading
+        campusLoading: state => state.campuses.loading,
+        userLoading: state => state.user.loading
     },
 
     mutations: {

@@ -8,13 +8,19 @@
                             <v-toolbar-title>Login</v-toolbar-title>
                         </v-toolbar>
                         <v-card-text>
-                            <v-form>
+                            <v-form
+                                @submit.prevent="handleSigninUser"
+                                ref="form"
+                            >
                                 <v-text-field
+                                    class="mb-3"
                                     v-model="username"
                                     label="Username"
                                     name="username"
                                     prepend-icon="person"
                                     placeholder="Username"
+                                    ref="username"
+                                    :rules="[() => !!username]"
                                     type="text"
                                 />
 
@@ -26,14 +32,32 @@
                                     prepend-icon="lock"
                                     placeholder="Password"
                                     type="password"
+                                    ref="password"
+                                    :rules="[() => !!password]"
                                 />
+
+                                <v-btn
+                                    class="mt-3"
+                                    color="primary"
+                                    type="submit"
+                                    :loading="userLoading"
+                                    block
+                                >
+                                    Login
+                                </v-btn>
+
+                                <div class="text-center">
+                                    <span>
+                                        Don't have account ?
+                                        <router-link to="/signup">
+                                            Sign up here
+                                        </router-link>
+                                    </span>
+                                </div>
                             </v-form>
                         </v-card-text>
                         <v-card-actions>
                             <v-spacer />
-                            <v-btn color="primary" @click="handleSigninUser"
-                                >Login</v-btn
-                            >
                         </v-card-actions>
                     </v-card>
                 </v-col>
@@ -43,22 +67,43 @@
 </template>
 
 <script>
-import { mapActions } from 'vuex';
+import { mapActions, mapGetters } from "vuex";
 
 export default {
-    name: 'Signin',
+    name: "Signin",
     data: () => ({
-        username: '',
-        password: ''
+        username: "",
+        password: "",
+        formHasErrors: false
     }),
-    methods: {
-        ...mapActions(['signinUser']),
-        handleSigninUser() {
-            console.log('signing in...');
-            this.signinUser({
+    computed: {
+        ...mapGetters(["userLoading"]),
+        form() {
+            return {
                 username: this.username,
                 password: this.password
+            };
+        }
+    },
+    methods: {
+        ...mapActions(["signinUser"]),
+
+        handleSigninUser() {
+            this.formHasErrors = false;
+
+            Object.keys(this.form).forEach(f => {
+                if (!this.form[f]) this.formHasErrors = true;
+
+                this.$refs[f].validate(true);
             });
+
+            if (!this.formHasErrors) {
+                console.log("Signing in...");
+                this.signinUser({
+                    username: this.username,
+                    password: this.password
+                });
+            }
         }
     }
 };
