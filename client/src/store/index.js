@@ -56,7 +56,7 @@ export default new Vuex.Store({
                     variables: credential
                 });
 
-                console.log(data);
+                localStorage.setItem("token", data.signinUser.token);
             } catch (error) {
                 console.log("ERR: ", error.message, error.name);
             }
