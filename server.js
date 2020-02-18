@@ -1,7 +1,8 @@
-const { ApolloServer } = require("apollo-server");
+const { ApolloServer, AuthenticationError } = require("apollo-server");
 const mongoose = require("mongoose");
 const fs = require("fs");
 const path = require("path");
+const jwt = require("jsonwebtoken");
 
 const filePath = path.join(__dirname, "typeDefs.gql");
 const typeDefs = fs.readFileSync(filePath, "utf-8");
@@ -27,19 +28,38 @@ mongoose
         console.log("Database Connected!!");
     })
     .catch(err => {
-        console.error(err);
+        throw new AuthenticationError(
+            "Your session has ended, please sign in again."
+        );
     });
+
+//verifying json web token
+const getUser = async token => {
+    if (token) {
+        try {
+            let user = await jwt.verify(token, process.env.SECRET_JWT);
+            console.log(user);
+        } catch (error) {
+            console.log(error);
+        }
+    }
+};
 
 const server = new ApolloServer({
     typeDefs,
     resolvers,
-    context: {
-        User,
-        Campus,
-        Team,
-        Task,
-        Attendance,
-        AttendanceStatus
+    context: ({ req }) => {
+        const token = req.headers["authorization"];
+
+        return {
+            User,
+            Campus,
+            Team,
+            Task,
+            Attendance,
+            AttendanceStatus,
+            currentUser: getUser(token)
+        };
     }
 });
 
