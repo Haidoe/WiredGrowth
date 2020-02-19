@@ -9,7 +9,8 @@ const routes = [
     {
         path: "/",
         name: "Home",
-        component: Home
+        component: Home,
+        beforeEnter: AuthGuard
     },
     {
         path: "/about",

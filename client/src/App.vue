@@ -1,32 +1,28 @@
 <template>
     <v-app>
-        <v-app-bar absolute color="primary" elevate-on-scroll dark>
-            <v-app-bar-nav-icon
-                class="d-none d-sm-flex d-md-none"
-            ></v-app-bar-nav-icon>
+        <v-app-bar absolute color="primary" elevate-on-scroll dark v-if="user">
+            <v-app-bar-nav-icon></v-app-bar-nav-icon>
 
             <v-toolbar-title>Wired Growth</v-toolbar-title>
 
             <v-spacer></v-spacer>
 
             <template v-for="nav in navList">
-                <router-link :to="nav.path" :key="nav.title">
-                    <v-btn color="primary" depressed rounded>
-                        <v-icon left>{{ nav.icon }}</v-icon
-                        >{{ nav.title }}
-                    </v-btn>
-                </router-link>
+                <v-btn
+                    color="primary"
+                    :to="nav.path"
+                    :key="nav.title"
+                    class="mr-1"
+                    depressed
+                    rounded
+                >
+                    <v-icon left>{{ nav.icon }}</v-icon>
+                    {{ nav.title }}
+                </v-btn>
             </template>
 
-            <v-btn
-                color="primary"
-                depressed
-                rounded
-                v-if="user"
-                @click="handleSignoutUser"
-            >
-                <v-icon left>exit_to_app</v-icon>
-                Sign out
+            <v-btn color="primary" depressed rounded v-if="user" @click="handleSignoutUser">
+                <v-icon left>exit_to_app</v-icon>Sign out
             </v-btn>
         </v-app-bar>
 

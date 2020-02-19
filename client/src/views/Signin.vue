@@ -1,17 +1,14 @@
 <template>
     <v-content>
-        <v-container class="fill-height" fluid>
-            <v-row align="center" justify="center">
+        <v-container>
+            <v-row class="d-flex justify-center align-center" style="height: 80vh;">
                 <v-col cols="12" sm="8" md="4">
                     <v-card class="elevation-12">
                         <v-toolbar color="primary" dark flat>
-                            <v-toolbar-title>Login</v-toolbar-title>
+                            <v-toolbar-title>Wired Growth Login</v-toolbar-title>
                         </v-toolbar>
                         <v-card-text>
-                            <v-form
-                                @submit.prevent="handleSigninUser"
-                                ref="form"
-                            >
+                            <v-form @submit.prevent="handleSigninUser" ref="form">
                                 <v-text-field
                                     class="mb-3"
                                     v-model="username"
@@ -42,18 +39,14 @@
                                     type="submit"
                                     :loading="userLoading"
                                     block
-                                >
-                                    Login
-                                </v-btn>
+                                >Login</v-btn>
 
-                                <div class="text-center">
+                                <!-- <div class="text-center">
                                     <span>
                                         Don't have account ?
-                                        <router-link to="/signup">
-                                            Sign up here
-                                        </router-link>
+                                        <router-link to="/signup">Sign up here</router-link>
                                     </span>
-                                </div>
+                                </div>-->
                             </v-form>
                         </v-card-text>
                         <v-card-actions>
