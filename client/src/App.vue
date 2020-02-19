@@ -1,7 +1,7 @@
 <template>
     <v-app>
         <v-app-bar absolute color="primary" elevate-on-scroll dark>
-            <v-app-bar-nav-icon @click="drawer = !drawer" v-if="user"></v-app-bar-nav-icon>
+            <v-app-bar-nav-icon @click.stop="drawer = !drawer" v-if="user"></v-app-bar-nav-icon>
 
             <v-toolbar-title>
                 <router-link to="/" class="toolbar-title">Wired Growth</router-link>
@@ -34,50 +34,17 @@
             </transition>
         </main>
 
-        <v-navigation-drawer v-model="drawer" absolute temporary v-show="user">
-            <v-list-item>
-                <v-list-item-avatar>
-                    <v-img :src="activeUser.avatar"></v-img>
-                </v-list-item-avatar>
-
-                <v-list-item-content>
-                    <v-list-item-title>{{ activeUser.username }}</v-list-item-title>
-                </v-list-item-content>
-            </v-list-item>
-
-            <v-divider></v-divider>
-
-            <v-list dense>
-                <v-list-item
-                    v-for="item in drawerNavList"
-                    :key="`${item.title}-drawer`"
-                    :to="item.path"
-                    link
-                >
-                    <v-list-item-icon>
-                        <v-icon>{{ item.icon }}</v-icon>
-                    </v-list-item-icon>
-
-                    <v-list-item-content>
-                        <v-list-item-title>{{ item.title }}</v-list-item-title>
-                    </v-list-item-content>
-                </v-list-item>
-                <v-list-item link @click="handleSignoutUser">
-                    <v-list-item-icon>
-                        <v-icon>exit_to_app</v-icon>
-                    </v-list-item-icon>
-
-                    <v-list-item-content>
-                        <v-list-item-title>Sign out</v-list-item-title>
-                    </v-list-item-content>
-                </v-list-item>
-            </v-list>
-        </v-navigation-drawer>
+        <DrawerNav v-model="drawer" />
     </v-app>
 </template>
 <script>
 import { mapGetters, mapActions } from "vuex";
+import DrawerNav from "./components/DrawerNav";
+
 export default {
+    components: {
+        DrawerNav
+    },
     data: () => ({
         drawer: false
     }),
@@ -106,50 +73,6 @@ export default {
                 //     icon: "edit"
                 // }
             ];
-        },
-        drawerNavList() {
-            return [
-                {
-                    path: "/attendance",
-                    title: "Attendance",
-                    icon: "calendar_today"
-                },
-                {
-                    path: "/attendee",
-                    title: "Attendee",
-                    icon: "person"
-                },
-                {
-                    path: "/team",
-                    title: "Team",
-                    icon: "group"
-                },
-                {
-                    path: "/task",
-                    title: "Task",
-                    icon: "work"
-                },
-                {
-                    path: "/campus",
-                    title: "Campus",
-                    icon: "location_on"
-                },
-                {
-                    path: "/attendance-status",
-                    title: "Attendance Status",
-                    icon: "emoji_emotions"
-                }
-            ];
-        },
-        activeUser() {
-            if (this.user) {
-                return this.user;
-            } else {
-                return {
-                    username: "John Doe",
-                    avatar: "https://randomuser.me/api/portraits/men/78.jpg"
-                };
-            }
         }
     },
     methods: {
