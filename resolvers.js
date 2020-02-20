@@ -1,6 +1,8 @@
 const bcrypt = require("bcryptjs");
 const jwt = require("jsonwebtoken");
 
+const attendeeTypeDefs = require("./typedefs/attendee");
+
 const createToken = (user, secret, expiresIn) => {
     const { username, email } = user;
     return jwt.sign({ username, email }, secret, { expiresIn });
@@ -29,7 +31,8 @@ module.exports = {
             const campuses = await Campus.find({});
 
             return campuses;
-        }
+        },
+        ...attendeeTypeDefs.query
     },
     Mutation: {
         signupUser: async (_, { username, email, password }, { User }) => {
@@ -151,6 +154,7 @@ module.exports = {
             }).save();
 
             return newAttendance;
-        }
+        },
+        ...attendeeTypeDefs.mutation
     }
 };

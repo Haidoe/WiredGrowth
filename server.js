@@ -15,6 +15,7 @@ const User = require("./models/User");
 const Campus = require("./models/Campus");
 const Task = require("./models/Task");
 const Team = require("./models/Team");
+const Attendee = require("./models/Attendee");
 const AttendanceStatus = require("./models/AttendanceStatus");
 const Attendance = require("./models/Attendance");
 
@@ -22,7 +23,8 @@ mongoose
     .connect(process.env.MONGO_URI, {
         useNewUrlParser: true,
         useUnifiedTopology: true,
-        useCreateIndex: true
+        useCreateIndex: true,
+        useFindAndModify: false
     })
     .then(() => {
         console.log("Database Connected!!");
@@ -52,6 +54,7 @@ const server = new ApolloServer({
             Campus,
             Team,
             Task,
+            Attendee,
             Attendance,
             AttendanceStatus,
             currentUser: await getUser(token)

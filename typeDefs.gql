@@ -33,13 +33,20 @@ type AttendanceStatus {
 
 type Attendance {
     _id: ID
-    user: User!
+    user: Attendee!
     team: Team!
     task: Task
     campus: Campus!
     attendanceStatus: AttendanceStatus!
     createdBy: User!
     date: String!
+}
+
+type Attendee {
+    _id: ID
+    firstName: String!
+    lastName: String!
+    joinDate: String!
 }
 
 type Token {
@@ -53,6 +60,7 @@ type Query {
     getCampuses: [Campus]
     getAttendanceStatus: [AttendanceStatus]
     getCurrentUser: User
+    getAttendees: [Attendee]
 }
 
 type Mutation {
@@ -74,4 +82,16 @@ type Mutation {
         createdBy: ID!
         date: String
     ): Attendance!
+    addAttendee(
+        firstName: String!
+        lastName: String!
+        joinDate: String
+    ): Attendee
+    editAttendee(
+        attendeeId: ID
+        firstName: String
+        lastName: String
+        joinDate: String
+    ): Attendee
+    deleteAttendee(attendeeId: ID): Attendee
 }
