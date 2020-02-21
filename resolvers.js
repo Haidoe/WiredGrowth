@@ -2,6 +2,7 @@ const bcrypt = require("bcryptjs");
 const jwt = require("jsonwebtoken");
 
 const attendeeTypeDefs = require("./typedefs/attendee");
+const campusTypeDefs = require("./typedefs/campus");
 
 const createToken = (user, secret, expiresIn) => {
     const { username, email } = user;
@@ -27,11 +28,7 @@ module.exports = {
 
             return users;
         },
-        getCampuses: async (_, args, { Campus }) => {
-            const campuses = await Campus.find({});
-
-            return campuses;
-        },
+        ...campusTypeDefs.query,
         ...attendeeTypeDefs.query
     },
     Mutation: {
@@ -70,19 +67,6 @@ module.exports = {
             }
 
             return { token: createToken(user, process.env.SECRET_JWT, "1hr") };
-        },
-        addCampus: async (_, { campus }, { Campus }) => {
-            const oldCampus = await Campus.findOne({ campus });
-
-            if (oldCampus) {
-                throw new Error("Campus already exists");
-            }
-
-            const newCampus = await new Campus({
-                campus
-            }).save();
-
-            return newCampus;
         },
         addAttendanceStatus: async (
             _,
@@ -155,6 +139,7 @@ module.exports = {
 
             return newAttendance;
         },
-        ...attendeeTypeDefs.mutation
+        ...attendeeTypeDefs.mutation,
+        ...campusTypeDefs.mutation
     }
 };

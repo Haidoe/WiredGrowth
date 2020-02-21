@@ -66,7 +66,6 @@ type Query {
 type Mutation {
     signupUser(username: String!, email: String!, password: String!): Token
     signinUser(username: String!, password: String!): Token
-    addCampus(campus: String!): Campus!
     addAttendanceStatus(
         status: String!
         description: String!
@@ -82,16 +81,21 @@ type Mutation {
         createdBy: ID!
         date: String
     ): Attendance!
+
     addAttendee(
         firstName: String!
         lastName: String!
         joinDate: String
-    ): Attendee
+    ): Attendee!
     editAttendee(
         attendeeId: ID
         firstName: String
         lastName: String
         joinDate: String
-    ): Attendee
-    deleteAttendee(attendeeId: ID): Attendee
+    ): Attendee!
+    deleteAttendee(attendeeId: ID): Attendee!
+
+    addCampus(campus: String!): Campus!
+    editCampus(campusId: ID, campus: String!): Campus!
+    deleteCampus(campusId: ID): Campus!
 }
