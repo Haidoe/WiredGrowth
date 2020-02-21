@@ -3,6 +3,7 @@ const jwt = require("jsonwebtoken");
 
 const attendeeTypeDefs = require("./typedefs/attendee");
 const campusTypeDefs = require("./typedefs/campus");
+const teamTypeDefs = require("./typedefs/team");
 
 const createToken = (user, secret, expiresIn) => {
     const { username, email } = user;
@@ -29,7 +30,8 @@ module.exports = {
             return users;
         },
         ...campusTypeDefs.query,
-        ...attendeeTypeDefs.query
+        ...attendeeTypeDefs.query,
+        ...teamTypeDefs.query
     },
     Mutation: {
         signupUser: async (_, { username, email, password }, { User }) => {
@@ -86,20 +88,6 @@ module.exports = {
 
             return newStatus;
         },
-        addTeam: async (_, { team, description }, { Team }) => {
-            const oldTeam = await Team.findOne({ team });
-
-            if (oldTeam) {
-                throw new Error("Team already exists");
-            }
-
-            const newTeam = await new Team({
-                team,
-                description
-            }).save();
-
-            return newTeam;
-        },
         addTask: async (_, { task, description }, { Task }) => {
             const oldTask = await Task.findOne({ task });
 
@@ -140,6 +128,7 @@ module.exports = {
             return newAttendance;
         },
         ...attendeeTypeDefs.mutation,
-        ...campusTypeDefs.mutation
+        ...campusTypeDefs.mutation,
+        ...teamTypeDefs.mutation
     }
 };

@@ -4,8 +4,6 @@ const getCampuses = async (_, args, { Campus }) => {
 };
 
 const addCampus = async (_, { campus }, { Campus }) => {
-    if (!campus.length) throw new Error("Campus field is empty.");
-
     const isCampusExists = await Campus.findOne({ campus });
 
     if (isCampusExists) throw new Error("Campus already exists");
