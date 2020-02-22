@@ -15,6 +15,7 @@ const addStatus = async (_, { status, description }, { AttendanceStatus }) => {
 
     return newStatus;
 };
+
 const editStatus = async (
     _,
     { statusId, status, description },
@@ -28,6 +29,7 @@ const editStatus = async (
 
     return editedStatus;
 };
+
 const deleteSTatus = async (_, { statusId }, { AttendanceStatus }) => {
     const deletedStatus = await AttendanceStatus.findOneAndDelete({
         _id: statusId
