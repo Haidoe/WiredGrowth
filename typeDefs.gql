@@ -70,7 +70,6 @@ type Mutation {
         status: String!
         description: String!
     ): AttendanceStatus!
-    addTask(task: String!, description: String): Task!
     addAttendance(
         user: ID!
         team: ID!
@@ -95,10 +94,14 @@ type Mutation {
     deleteAttendee(attendeeId: ID): Attendee!
 
     addCampus(campus: String!): Campus!
-    editCampus(campusId: ID, campus: String!): Campus!
+    editCampus(campusId: ID, campus: String): Campus!
     deleteCampus(campusId: ID): Campus!
 
     addTeam(team: String!, description: String): Team!
-    editTeam(teamId: ID, team: String!, description: String): Team!
+    editTeam(teamId: ID, team: String, description: String): Team!
     deleteTeam(teamId: ID): Team!
+
+    addTask(task: String!, description: String): Task!
+    editTask(taskId: ID, task: String, description: String): Task!
+    deleteTask(taskId: ID): Task!
 }

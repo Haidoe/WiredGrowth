@@ -4,6 +4,7 @@ const jwt = require("jsonwebtoken");
 const attendeeTypeDefs = require("./typedefs/attendee");
 const campusTypeDefs = require("./typedefs/campus");
 const teamTypeDefs = require("./typedefs/team");
+const taskTypeDefs = require("./typedefs/task");
 
 const createToken = (user, secret, expiresIn) => {
     const { username, email } = user;
@@ -31,7 +32,8 @@ module.exports = {
         },
         ...campusTypeDefs.query,
         ...attendeeTypeDefs.query,
-        ...teamTypeDefs.query
+        ...teamTypeDefs.query,
+        ...taskTypeDefs.query
     },
     Mutation: {
         signupUser: async (_, { username, email, password }, { User }) => {
@@ -129,6 +131,7 @@ module.exports = {
         },
         ...attendeeTypeDefs.mutation,
         ...campusTypeDefs.mutation,
-        ...teamTypeDefs.mutation
+        ...teamTypeDefs.mutation,
+        ...taskTypeDefs.mutation
     }
 };
