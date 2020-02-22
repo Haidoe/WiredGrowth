@@ -58,7 +58,7 @@ type Query {
     getTeams: [Team]
     getTasks: [Task]
     getCampuses: [Campus]
-    getAttendanceStatus: [AttendanceStatus]
+    getAttendanceStatuses: [AttendanceStatus]
     getCurrentUser: User
     getAttendees: [Attendee]
 }
@@ -66,10 +66,7 @@ type Query {
 type Mutation {
     signupUser(username: String!, email: String!, password: String!): Token
     signinUser(username: String!, password: String!): Token
-    addAttendanceStatus(
-        status: String!
-        description: String!
-    ): AttendanceStatus!
+
     addAttendance(
         user: ID!
         team: ID!
@@ -104,4 +101,12 @@ type Mutation {
     addTask(task: String!, description: String): Task!
     editTask(taskId: ID, task: String, description: String): Task!
     deleteTask(taskId: ID): Task!
+
+    addAttendanceStatus(status: String!, description: String): AttendanceStatus!
+    editAttendanceStatus(
+        statusId: ID
+        status: String
+        description: String
+    ): AttendanceStatus!
+    deleteAttendanceStatus(statusId: ID): AttendanceStatus!
 }

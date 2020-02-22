@@ -5,6 +5,7 @@ const attendeeTypeDefs = require("./typedefs/attendee");
 const campusTypeDefs = require("./typedefs/campus");
 const teamTypeDefs = require("./typedefs/team");
 const taskTypeDefs = require("./typedefs/task");
+const attendanceStatusTypeDefs = require("./typedefs/attendanceStatus");
 
 const createToken = (user, secret, expiresIn) => {
     const { username, email } = user;
@@ -33,7 +34,8 @@ module.exports = {
         ...campusTypeDefs.query,
         ...attendeeTypeDefs.query,
         ...teamTypeDefs.query,
-        ...taskTypeDefs.query
+        ...taskTypeDefs.query,
+        ...attendanceStatusTypeDefs.query
     },
     Mutation: {
         signupUser: async (_, { username, email, password }, { User }) => {
@@ -72,38 +74,6 @@ module.exports = {
 
             return { token: createToken(user, process.env.SECRET_JWT, "1hr") };
         },
-        addAttendanceStatus: async (
-            _,
-            { status, description },
-            { AttendanceStatus }
-        ) => {
-            const oldStatus = await AttendanceStatus.findOne({ status });
-
-            if (oldStatus) {
-                throw new Error("Attendance Status already exists");
-            }
-
-            const newStatus = await new AttendanceStatus({
-                status,
-                description
-            }).save();
-
-            return newStatus;
-        },
-        addTask: async (_, { task, description }, { Task }) => {
-            const oldTask = await Task.findOne({ task });
-
-            if (oldTask) {
-                throw new Error("Task already exists");
-            }
-
-            const newTask = await new Task({
-                task,
-                description
-            }).save();
-
-            return newTask;
-        },
         addAttendance: async (
             _,
             { user, team, task, campus, attendanceStatus, createdBy, date },
@@ -132,6 +102,7 @@ module.exports = {
         ...attendeeTypeDefs.mutation,
         ...campusTypeDefs.mutation,
         ...teamTypeDefs.mutation,
-        ...taskTypeDefs.mutation
+        ...taskTypeDefs.mutation,
+        ...attendanceStatusTypeDefs.mutation
     }
 };
